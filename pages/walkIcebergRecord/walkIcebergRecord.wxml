@@ -1,0 +1,68 @@
+<view class="walk_record">
+<!-- 切换dot、right、left -->
+  <view class="tab">
+    <view class="r_l_date">
+        <image src="../../img/white_arrow_left.png"></image>
+        <view class="time_date">{{date}}</view>
+        <image src="../../img/white_arrow_right.png"></image>
+    </view>
+    <view class="dot_fa clearfix">
+      <view class="{{index == activeCurrent ? 'active':''}} dot" wx:key="index" wx:for="{{textArr}}"></view>
+    </view>
+  </view>
+
+  <!-- 滑动切换 -->
+  <view class="swiper_box" style="background-image:url('../../img/bg.png')">
+    <swiper
+      bindchange="moveText"
+      current="{{current}}"
+      indicator-dots="{{indicatorDots}}" 
+      autoplay="{{autoplay}}" 
+      interval="{{interval}}" 
+      duration="{{duration}}">
+      <block wx:key="index" wx:for="{{textArr}}">
+        <swiper-item class="huadong_content"  style="background-image:url('../../img/shan.png')">
+          <view>
+            <view class="content_box clearfix">
+              <view class="event clearfix">
+                <view class="e_word">{{index}}</view>
+                <view class="e_content">三年前指责轻就那点钱那点钱接口那块轻就那点钱那点钱接口</view>
+              </view>
+              <view class="hard clearfix">
+                <view class="hard_word">应对</view>
+                <view class="hard_content">指责</view>
+              </view>
+              <view class="feel clearfix">
+                <view class="feel_word">感受</view>
+                <view class="feel_content">气氛、烦躁气氛</view>
+              </view>
+              <view class="feel clearfix">
+                <view class="feel_word">观点</view>
+                <view class="feel_content">无法接受安静安静阿卡</view>
+              </view>
+              <view class="hope clearfix">
+                <view class="hope_word">期待</view>
+                <view class="hope_content">对自己:不要太好斗,\n对他人:讲道理</view>
+              </view>
+              <view class="hope clearfix">
+                <view class="hope_word">渴望</view>
+                <view class="hope_content">被尊重</view>
+              </view>
+              <view class="autognosis clearfix">
+                <view class="autognosis_word">自我\n认知</view>
+                <view class="autognosis_content">8分，自我价值高</view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  
+  <view class="mark">
+    <image class="edit" src="../../img/edit.png"></image>
+    <image class="new_write" src="../../img/write.png"></image>
+    <image class="history" src="../../img/look_back.png"></image>
+  </view>
+  
+</view>
