@@ -33,5 +33,42 @@ Page({
     this.setData({
       activeCurrent:e.detail.current
     })
-  }
+  },
+  // 左右切换
+  toLeft(){
+    var that = this;
+    var ind = that.data.activeCurrent-1;
+    if (ind>=0){
+      that.setData({
+        activeCurrent: ind,
+        current:ind
+      })
+    }
+  },
+  toRight(){
+    var that = this;
+    var ind = that.data.activeCurrent+1;
+    if (ind <= this.data.textArr.length -1) {
+      that.setData({
+        activeCurrent: ind,
+        current: ind
+      })
+    }
+  },
+  // 跳转
+  goMakeRecord(){
+    wx.navigateTo({
+      url: '../makeRecord/makeRecord'
+    })
+  },
+  goModifyRecord(){
+    wx.navigateTo({
+      url: '../modifyRecord/modifyRecord'
+    })
+  },
+  goReview(){
+    wx.navigateTo({
+      url: '../review/review'
+    })
+  },
 })

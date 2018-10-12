@@ -1,0 +1,76 @@
+<view id="box">
+	<!-- 红色 -->
+	<view class="red_box">
+		<view>
+			<view class="red_title shijian_title">事件</view>
+			<view class="shijian_inp">
+				<input type="text" placeholder="行为， 故事内容"/>
+			</view>
+		</view>
+		<view>
+			<view class="red_title yingdui_title">应对</view>
+			<view class="arr_btn">
+				<view bindtap="selectActive" data-index="{{index}}" class="{{index == activeCurrent ? 'active':''}} select_yingdui" wx:key="index" wx:for="{{arrBtn}}">{{item.title}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="line"></view>
+	<!-- 蓝色 -->
+	<view class="blue_box">
+		<view>
+			<view class="blue_title ganshou_title">感受</view>
+			<view class="ganshou_inp">
+				<input type="text" placeholder="感受的决定"/>
+			</view>
+		</view>
+		<view>
+			<view class="blue_title guandian_title">应对</view>
+			<view class="guandian_inp">
+				<input type="text" placeholder="信念、假设、预设立场、主观现实、认知"/>
+			</view>
+		</view>
+	</view>
+	<view class="line"></view>
+	<!-- 绿色 -->
+	<view class="green_box">
+		<view>
+			<view class="green_title qidai_title">期待</view>
+			<view class="qidai_inp">
+				<input type="text" placeholder="对自己"/>
+			</view>
+			<view class="qidai_inp_end">
+				<input type="text" placeholder="对他人"/>
+			</view>
+		</view>
+		<view>
+			<view class="green_title kewang_title">渴望</view>
+			<view class="kewang_inp">
+				<input type="text" placeholder="希望怎样对待"/>
+			</view>
+		</view>
+		<view>
+			<view class="green_title ziwo_title">自我认知</view>
+			<view class="tab_bar clearfix">
+				<view class="low">自我价值低</view>
+				<view>
+					<movable-area  class="pull_bar">
+				    <movable-view class="clearfix" style="width: 36rpx;height: 50rpx;" direction="horizontal" bindchange="onChange">
+				    	<view class="core clearfix">
+								<image class="bar" src="../../img/bar.png"></image>
+								<view class="core_son clearfix">
+									<view class="core_num">{{core}}</view>
+									<view class="core_word">分</view>
+								</view>
+							</view>
+				    </movable-view>
+				  </movable-area>
+				</view>
+				<view class="top">自我价值高</view>
+			</view>
+		</view>
+	</view>
+	<view class="control">
+		<button class="save">保存</button>
+		<button class="delete">删除</button>
+	</view>
+</view>

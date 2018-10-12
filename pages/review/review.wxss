@@ -1,0 +1,222 @@
+.blue_box{
+	height: 250rpx;
+	background: #4fb6f8;
+	position: relative;
+}
+/* 日历 */
+.rili{
+	display: inline-block;
+	width: 150rpx;
+	height: 150rpx;
+	margin:50rpx 0 50rpx 100rpx;
+}
+/* 右侧走冰山 */
+.nag{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 40rpx;
+	top: 20rpx;
+}
+.word{
+	font-size: 26rpx;
+	display: inline-block;
+	color: #fff;
+}
+.dayu{
+	width: 26rpx;
+	height: 26rpx;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 26rpx;
+}
+/* 中间文字 */
+.walk_word{
+	display: inline-block;
+	color: #fff;
+	position: absolute;
+	height: 150rpx;
+	margin-top: 58rpx;
+	left: 290rpx;
+}
+.no_walk{
+	text-align: center;
+	font-size: 36rpx;
+	letter-spacing: 1rpx;
+}
+.continuity{
+	letter-spacing: 1rpx;
+	font-size: 28rpx;
+	margin-top: 30rpx;
+}
+.walk_num{
+	display: inline-block;
+}
+/* 时间切换bar */
+.tab_date{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 60rpx;
+}
+.tab_date image{
+	display: inline-block;
+	width: 40rpx;
+	height: 40rpx;
+  	position: relative;
+	vertical-align: middle;
+}
+.date{
+	color: #333333;
+	font-size: 36rpx;
+	display: inline-block;
+	margin:0 100rpx;
+	letter-spacing: 2rpx;
+}
+
+/* 日期选择器 */
+.picker_view{
+	width: 590rpx; 
+	height: 500rpx;
+	background: #fff;
+	border-radius: 40rpx;
+	z-index:9999999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right:0;
+	margin:auto;
+}
+.selected{
+	height: 50rpx;
+	line-height: 50rpx;
+	font-weight: bolder;
+	padding: 4rpx 0;
+
+}
+.picker_box{
+	height: 334rpx;
+	width: 350rpx;
+	margin: 30rpx auto;
+
+}
+.align_center{
+	text-align: center;
+}
+.align_center view{
+
+	font-size: 36rpx;
+	letter-spacing: 3rpx;
+}
+/* 日期选择-确定、取消按钮 */
+.btn_arr{
+	margin-top: 40rpx;
+}
+.btn_arr button{
+	border-radius:0;
+	border:none;
+	background: #fff;
+	display: inline-block;
+	margin-bottom: 30rpx;
+}
+.btn_arr button::after {
+    border-radius:0;
+    border:none;
+}
+.sure{
+	font-size: 36rpx;
+	color: #02b7fe;
+	float: left;
+	margin-left: 95rpx;
+}
+.cancle{
+	font-size: 36rpx;
+	color: #7d7d7d;
+	float: right;
+	margin-right: 95rpx;
+}
+/* 遮罩 */
+.mask{
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-color:#000;
+  z-index:99;
+  top:0;
+  left:0;
+  opacity:0.75;
+  -moz-opacity: 0.75;  
+  filter: alpha(opacity=75); 
+}
+/* 具体日期 */
+.detail_date{
+	width: 100%;
+	padding: 0 60rpx;
+}
+.face{
+	width: 30rpx;
+	height: 30rpx;
+	display: inline-block;
+	margin:10rpx auto;
+}
+.db{
+	display: inline-block;
+}
+.number{
+	text-align: center;
+	font-size: 36rpx;
+	font-weight: bolder;
+}
+.date_item{
+	text-align: center;
+	line-height: 48rpx;
+	width: 90rpx;
+	padding: 0 1rpx;
+	height: 90rpx;
+	margin-top: 20rpx;
+}
+/* 表格 */
+.table {  
+ 	margin-top: 60rpx;
+ 	
+}
+.date_detail{
+	padding: 0 60rpx;
+}
+.td { 
+	width: 90rpx;
+ 	padding: 30rpx 0 10rpx 0; 
+  text-align: center; 
+  display: inline-block;
+  border-bottom: 1rpx solid #dadada;
+}
+.td:nth-child(1){
+	margin-left: 540rpx;
+}
+/* 星期 */
+.week_detail{
+	width: 90rpx;
+	color: #333333;
+	font-size: 36rpx;
+	text-align: center; 
+  display: inline-block;
+ 	font-weight: 400;  
+}
+.week{
+	width: 100%; 
+	border-bottom: 1rpx solid #dadada;
+	padding: 0 60rpx 20rpx 60rpx;
+}
+
+
+
+
+
+
+
+
+
+
+

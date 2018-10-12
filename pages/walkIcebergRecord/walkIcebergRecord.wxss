@@ -11,13 +11,18 @@
 swiper{
   height:100%;
   width: 100%;
-  
+  position: absolute;
+  top: 0;
 }
 .swiper-image {
   height: 100%;
   width: 100%;
 }
 swiper-item{
+	height: 100%;
+}
+.bg{
+	width: 100%;
 	height: 100%;
 }
 .huadong_content{
@@ -217,13 +222,12 @@ swiper-item{
 	display: inline-block;
 	width: 90rpx;
 	height: 90rpx;
-	text-align: center;
-	font-size: 28rpx;
 	background:#fff;
 	color: #64bc8e;
 	border-radius: 50%;
 	border:2rpx solid #64bc8e;
 	float: left;
+	position: relative;
 }
 .autognosis_content{
 	max-width: 70%;
@@ -237,6 +241,18 @@ swiper-item{
 	color: #64bc8e;
 }
 
+.renzhi{
+	position: relative;
+	text-align: center;
+	font-size: 28rpx;
+	margin-top: -8rpx;
+}
+.ziwo{
+	position: relative;
+	text-align: center;
+	font-size: 28rpx;
+	margin-top: 8rpx;
+}
 /* 菜单 */
 .mark{
 	width: 100%;

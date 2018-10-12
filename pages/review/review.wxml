@@ -1,0 +1,54 @@
+<view class="blue_box clearfix">
+	<view bindtap="goWalkIce" class="nag clearfix">
+		<view class="word">走冰山</view>
+		<image class="dayu" src="../../img/white_arrow_right.png"></image>
+	</view>
+	<view class="clearfix">
+		<image class="rili" src="../../img/calendar.png"></image>
+		<view class="walk_word">
+			<view class="no_walk">今日还未走冰山</view>
+			<view class="continuity">已经连续走冰山<view class="walk_num">{{walk_days}}</view>天</view>
+		</view>
+	</view>
+</view>
+
+<!-- 时间切换 -->
+<view class="tab_date">
+  <image bindtap="toLeft" src="../../img/black_arrow_left.png"></image>
+  <view bindtap="getDate" class="date">{{year}}年{{month}}月</view>
+  <image bindtap="toRight" src="../../img/black_arrow_right.png"></image>
+</view>
+
+<!-- 日期详情 -->
+<view class="table clearfix">
+	<view class="tr week">
+		<view class="week_detail" wx:key="index" wx:for="{{week}}">{{item}}</view>
+	</view>
+	<view class="date_detail">
+		<view style="margin-left:{{index == 0 ? move:'0rpx'}}"  class="td"  wx:key="index" wx:for="{{nowMonthArr}}">
+			<view class="number" >{{item+1}}</view>
+			<image class="face" src="../../img/high.png"></image>
+		</view>
+	</view>
+</view>
+
+
+<!-- 日期弹窗 -->
+
+<!-- 遮罩 -->
+<view class="picker_view" hidden='{{pickerViewFlag}}'>
+	  <picker-view class="picker_box" indicator-class="selected"  value="{{value}}" bindchange="bindChange">
+	    <picker-view-column class="align_center">
+	      <view wx:key="index" wx:for="{{years}}" style="line-height: 50rpx">{{item}}年</view>
+	    </picker-view-column>
+	    <picker-view-column class="align_center">
+	      <view wx:key="index" wx:for="{{months}}" style="line-height: 50rpx">{{item}}月</view>
+	    </picker-view-column>
+	  </picker-view>
+	  <view class="btn_arr clearfix">
+	  	<button bindtap="sureGetDate" class="sure">确定</button>
+	  	<button bindtap="cancleGetDate" class="cancle">取消</button>
+  </view>
+</view>
+<view class='mask clearfix' hidden='{{maskFlagMax}}'>
+</view>
