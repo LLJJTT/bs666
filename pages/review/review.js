@@ -4,21 +4,61 @@ Page({
   data: {
     week:['日','一','二','三','四','五','六'],
     walk_days:'13',
-    selected_date:'2018年9月',
     years: [],
-    year: 2018,
+    year: '',
     months: [],
-    month: 10,
+    month: '',
+    change_year:'',
+    change_month:'',
     maskFlagMax:true,//不显示遮罩
     pickerViewFlag:true,
     nowMonthArr:[],
-    move:'0rpx;'
+    move:'0rpx;',
+    color_status:'#64bc8e',
+    dateArr:[
+      {"year":"2018"},
+      {"month":"10"},
+      [
+        {'status':'0'},
+        {'status':'1'},
+        {'status':'-1'},
+        {'status':'1'},
+        {'status':'0'},
+        {'status':'0'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'-1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'0'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'0'},
+        {'status':'1'},
+        {'status':'-1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'0'},
+        {'status':'1'},
+        {'status':'-1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'1'},
+        {'status':'-1'}
+      ]
+    ]
   },
   // 监听页面加载
   onLoad(e){
     this.getToday()
     this.getNowMonthDate()
     this.getFirstDayWeek()
+    console.log(this.data.dateArr)
   },
   // 监听页面-初次-渲染完成
   onReady(){
@@ -35,14 +75,14 @@ Page({
       title:'切换中',
       mask:true
     })
-    if (this.data.month==1) {
-      this.data.month =13
+    if (this.data.change_month==1) {
+      this.data.change_month =13
       this.setData({
-        year:this.data.year - 1
+        change_year:this.data.change_year - 1
       })
     }
     this.setData({
-      month:this.data.month - 1
+      change_month:this.data.change_month - 1
     })
     this.changeMargin()
     wx.hideLoading()
@@ -53,14 +93,14 @@ Page({
       title:'切换中',
       mask:true
     })
-    if (this.data.month==12) {
-      this.data.month =0
+    if (this.data.change_month==12) {
+      this.data.change_month =0
       this.setData({
-        year:this.data.year + 1
+        change_year:this.data.change_year + 1
       })
     }
     this.setData({
-      month:this.data.month + 1
+      change_month:this.data.change_month + 1
     })
     this.changeMargin()
     wx.hideLoading()
@@ -90,9 +130,14 @@ Page({
       months.push(i)
     }
     // 获取今天年月
-    var month = date.getMonth() + 1
-    var year = date.getFullYear()
+    // var month = date.getMonth() + 1
+    // var year = date.getFullYear()
+    // 后台传过来的年月
+    var month = parseInt(this.data.dateArr[1].month)
+    var year = parseInt(this.data.dateArr[0].year)
     this.setData({
+      change_year:year,
+      change_month:month,
       years:years,
       months:months,
       year:year,
@@ -104,7 +149,7 @@ Page({
     var date = new Date();
     // var year = date.getFullYear();
     // var month = date.getMonth()+1;
-    var d = new Date(this.data.year, this.data.month, 0);
+    var d = new Date(this.data.change_year, this.data.change_month, 0);
     var now = []
     for(var i=0;i<d.getDate();i++){
       now.push(i)
@@ -128,27 +173,29 @@ Page({
     this.setData({
       move:weekday_ml
     })
+
   },
   // 滚动选择日期时
   bindChange: function(e) {
     const val = e.detail.value
     this.setData({
-      year: this.data.years[val[0]],
-      month: this.data.months[val[1]],
+      change_year: this.data.years[val[0]],
+      change_month: this.data.months[val[1]],
     })
-    // console.log(this.data.year+'-'+this.data.month)
   },
   // 动态改变Margin
   changeMargin(){
     this.getNowMonthDate()
     var d = new Date();
-    d.setYear(this.data.year);
-    d.setMonth(this.data.month-1);
+    d.setYear(this.data.change_year);
+    d.setMonth(this.data.change_month-1);
     d.setDate(1);//月的第一天
     // 展示每月第一天margin-left 
     // 距离 = 星期数 * 宽度(90)
     var weekday_ml = d.getDay()*90+'rpx'
     this.setData({
+      year:this.data.change_year,
+      month:this.data.change_month,
       move:weekday_ml,
     })
   },
@@ -167,7 +214,6 @@ Page({
   },
   // 取消
   cancleGetDate(){
-    this.getToday()
     this.setData({
       maskFlagMax:true,
       pickerViewFlag:true,

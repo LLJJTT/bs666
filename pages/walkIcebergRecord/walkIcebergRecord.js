@@ -12,8 +12,6 @@ Page({
   // 监听页面加载
   onLoad(){
     var textArrLength = this.data.textArr.length
-    console.log(textArrLength)
-    console.log(this.data)
     this.setData({
       
       // date: '899999'

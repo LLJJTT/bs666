@@ -25,9 +25,10 @@
 		<view class="week_detail" wx:key="index" wx:for="{{week}}">{{item}}</view>
 	</view>
 	<view class="date_detail">
-		<view style="margin-left:{{index == 0 ? move:'0rpx'}}"  class="td"  wx:key="index" wx:for="{{nowMonthArr}}">
-			<view class="number" >{{item+1}}</view>
-			<image class="face" src="../../img/high.png"></image>
+		<view style="margin-left:{{index == 0 ? move:'0rpx'}}"  class="td"  wx:key="index" wx:for="{{dateArr[2]}}" wx:for-item="item">
+			<view data-id="{{item.status}}" 
+			style="color:{{item.status == 0 ? '#7d7d7d' : (item.status == 1 ? '#64bc8e' :'#dd6f72') }}"  class="number" >{{index+1}}</view>
+			<image style="opacity: {{item.status == 0 ? '0':'1'}}" class="face" src="{{item.status == 0 ? '../../img/high.png' :(item.status == 1 ? '../../img/high.png' :'../../img/low.png')}}"></image>
 		</view>
 	</view>
 </view>
