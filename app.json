@@ -1,11 +1,10 @@
 {
   "pages":[
+    "pages/review/review",
     "pages/walkIcebergRecord/walkIcebergRecord",
     "pages/makeRecord/makeRecord",
     "pages/modifyRecord/modifyRecord",
-    "pages/review/review",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/index/index"
   ],
   "window":{
     "backgroundTextStyle":"dark",

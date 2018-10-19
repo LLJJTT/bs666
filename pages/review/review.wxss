@@ -10,6 +10,20 @@
 	height: 150rpx;
 	margin:50rpx 0 50rpx 100rpx;
 }
+.calendar_fa{
+	position: relative;
+}
+.today{
+	position: absolute;
+	text-align: center;
+	width: 132rpx;
+	top: 120rpx;
+	left: 100rpx;
+	color: #dd6f72;
+	font-size: 32rpx;
+	font-weight: bolder;
+	letter-spacing: 2rpx;
+}
 /* 右侧走冰山 */
 .nag{
 	display: flex;
@@ -18,6 +32,7 @@
 	position: absolute;
 	right: 40rpx;
 	top: 20rpx;
+	z-index: 999999;
 }
 .word{
 	font-size: 26rpx;
@@ -191,6 +206,7 @@
   text-align: center; 
   display: inline-block;
   border-bottom: 1rpx solid #dadada;
+  position: relative;
 }
 .td:nth-child(1){
 	margin-left: 540rpx;
@@ -208,6 +224,19 @@
 	width: 100%; 
 	border-bottom: 1rpx solid #dadada;
 	padding: 0 60rpx 20rpx 60rpx;
+}
+/* 当天小蓝点 */
+.blue_block{
+	background: #4fb6f8;
+	width: 10rpx;
+	height: 10rpx;
+	display: inline-block;
+	top: 18rpx;
+	margin-bottom: 10rpx;
+	border-radius: 50%;
+	position: absolute; 
+	left: 50%;
+	margin-left: -5rpx; 
 }
 
 

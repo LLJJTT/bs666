@@ -3,14 +3,15 @@
 		<view class="word">走冰山</view>
 		<image class="dayu" src="../../img/white_arrow_right.png"></image>
 	</view>
-	<view class="clearfix">
+	<view class="clearfix calendar_fa">
 		<image class="rili" src="../../img/calendar.png"></image>
+		<view class="today">{{today}}</view>
 		<view class="walk_word">
-			<view class="no_walk">今日还未走冰山</view>
+			<view class="no_walk">{{ifWalkWord}}</view>
 			<view class="continuity">已经连续走冰山<view class="walk_num">{{walk_days}}</view>天</view>
 		</view>
 	</view>
-</view>
+</view> 
 
 <!-- 时间切换 -->
 <view class="tab_date">
@@ -25,10 +26,11 @@
 		<view class="week_detail" wx:key="index" wx:for="{{week}}">{{item}}</view>
 	</view>
 	<view class="date_detail">
-		<view style="margin-left:{{index == 0 ? move:'0rpx'}}"  class="td"  wx:key="index" wx:for="{{dateArr[2]}}" wx:for-item="item">
+		<view style="margin-left:{{index == 0 ? move:'0rpx'}}"  class="td"  wx:key="index" wx:for="{{myselfData}}" wx:for-item="item">
 			<view data-id="{{item.status}}" 
 			style="color:{{item.status == 0 ? '#7d7d7d' : (item.status == 1 ? '#64bc8e' :'#dd6f72') }}"  class="number" >{{index+1}}</view>
 			<image style="opacity: {{item.status == 0 ? '0':'1'}}" class="face" src="{{item.status == 0 ? '../../img/high.png' :(item.status == 1 ? '../../img/high.png' :'../../img/low.png')}}"></image>
+			<view style="opacity: {{index == today-1 ? '1':'0'}}" class="blue_block"></view>
 		</view>
 	</view>
 </view>

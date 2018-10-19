@@ -1,5 +1,4 @@
-
-
+var app = getApp();
 Page({
   data: {
     week:['日','一','二','三','四','五','六'],
@@ -10,55 +9,25 @@ Page({
     month: '',
     change_year:'',
     change_month:'',
+    today:'1',
     maskFlagMax:true,//不显示遮罩
     pickerViewFlag:true,
     nowMonthArr:[],
     move:'0rpx;',
     color_status:'#64bc8e',
-    dateArr:[
-      {"year":"2018"},
-      {"month":"10"},
-      [
-        {'status':'0'},
-        {'status':'1'},
-        {'status':'-1'},
-        {'status':'1'},
-        {'status':'0'},
-        {'status':'0'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'-1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'0'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'0'},
-        {'status':'1'},
-        {'status':'-1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'0'},
-        {'status':'1'},
-        {'status':'-1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'1'},
-        {'status':'-1'}
-      ]
-    ]
+    backData:[],//后台返回的日历
+    myselfData:[],//更改格式-循环
+    ifWalkWord:null,
+
   },
   // 监听页面加载
   onLoad(e){
     this.getToday()
     this.getNowMonthDate()
     this.getFirstDayWeek()
-    console.log(this.data.dateArr)
+    this.getCalendar()
+    // this.changeBackData()
+    // console.log(this.data.dateArr)
   },
   // 监听页面-初次-渲染完成
   onReady(){
@@ -69,6 +38,57 @@ Page({
 
   },
   // 自定义函数
+  // Api-获取日历 
+  getCalendar(){
+    wx.showLoading({
+      title:'获取中',
+      mask:true
+    })
+    var that  = this
+    var mainOpenid = app.globalData.openId
+    var strLength = this.data.month.toString().length
+    var yearMonth = ''
+    if (strLength==1) {//获取月份长度 后端需要格式e.g:201809
+      yearMonth = this.data.year.toString() + '0' + this.data.month.toString()
+    }else{
+      yearMonth = this.data.year.toString()+this.data.month.toString()
+    }
+    // console.log(mainOpenid+'-'+yearMonth)
+    // Api - 获取日历
+    wx.request({
+      url: app.globalData.url+'ice/getCalendar', 
+      data: {
+        mainOpenid: mainOpenid, 
+        yearMonth: yearMonth
+      },
+      method:'POST',
+      success(res){
+        if (res.data.code==200) {
+          var calendar = res.data.data.calendar
+          that.setData({
+            backData:calendar
+          }) 
+          that.changeBackData()
+          // 判断今天是否走冰山
+          if (res.data.data.todayStatus==0) {
+            that.setData({
+              ifWalkWord:'今日还未走冰山'
+            })
+           
+          }else{
+            that.setData({
+              ifWalkWord:'今日已走'
+            })
+          }
+          wx.hideLoading()
+        }
+        console.log(res.data) 
+      },
+      fail(err){
+        console.log(err)
+      }
+    })
+  },
   // 左切换
   toLeft(){
     wx.showLoading({
@@ -85,6 +105,8 @@ Page({
       change_month:this.data.change_month - 1
     })
     this.changeMargin()
+    this.getCalendar()
+    // this.changeBackData()
     wx.hideLoading()
   },
   // 右切换
@@ -103,6 +125,8 @@ Page({
       change_month:this.data.change_month + 1
     })
     this.changeMargin()
+    this.getCalendar()
+    // this.changeBackData()
     wx.hideLoading()
   },
   // 点击按钮-获取日期
@@ -130,18 +154,19 @@ Page({
       months.push(i)
     }
     // 获取今天年月
-    // var month = date.getMonth() + 1
-    // var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var year = date.getFullYear()
     // 后台传过来的年月
-    var month = parseInt(this.data.dateArr[1].month)
-    var year = parseInt(this.data.dateArr[0].year)
+    // var month = parseInt(this.data.dateArr[1].month)
+    // var year = parseInt(this.data.dateArr[0].year)
     this.setData({
       change_year:year,
       change_month:month,
       years:years,
       months:months,
       year:year,
-      month:month
+      month:month,
+      today:date.getDate()//获取今天日期
     })
   },
   // 获取本月的天数
@@ -206,6 +231,8 @@ Page({
       mask:true
     })
     this.changeMargin()
+    this.getCalendar()
+    this.changeBackData()
     this.setData({
       maskFlagMax:true,
       pickerViewFlag:true,
@@ -224,5 +251,26 @@ Page({
     wx.navigateTo({
       url: '../makeRecord/makeRecord'
     })
+  },
+  // 更改后台数据
+  changeBackData(){
+    var myselfData = []
+    var d = new Date(this.data.year, this.data.month, 0);
+    for(var i=0;i<d.getDate();i++){
+      myselfData.push({"status":'0'})
+    }
+    console.log(this.data.backData)
+    this.data.backData.map((item,index) =>{
+      if (item.selfCognition>5) {
+        myselfData[item.day-1].status = 1
+      }
+      else if (item.selfCognition<=5){
+        myselfData[item.day-1].status = -1
+      }
+    })
+    this.setData({
+      myselfData:myselfData
+    })
+      // backDay.push(this.data.falseData[j].day)
   }
 })

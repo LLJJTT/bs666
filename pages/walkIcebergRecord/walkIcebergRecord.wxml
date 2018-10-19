@@ -3,10 +3,10 @@
   <view class="tab">
     <view class="r_l_date">
         <image bindtap="toLeft" src="../../img/white_arrow_left.png"></image>
-        <view class="time_date">{{date}}</view>
+        <view class="time_date">{{currentMonth}}月{{currentDay}}日</view>
         <image bindtap="toRight" src="../../img/white_arrow_right.png"></image>
     </view>
-    <view class="dot_fa clearfix">
+    <view class="dot_fa clearfix" wx:if="{{showSiper}}">
       <view class="{{index == activeCurrent ? 'active':''}} dot" wx:key="index" wx:for="{{textArr}}"></view>
     </view>
   </view>
@@ -14,8 +14,10 @@
   <!-- 滑动切换 -->
   <!-- style="background-image:url('../../img/bg.png')" -->
   <view class="swiper_box" >
-    <image class="bg" src="../../img/bg.png"></image> 
+    <image wx:if="{{showSiper}}" class="bg" src="../../img/bg.png"></image>
+    <image wx:if="{{!showSiper}}" class="shan_img" src="../../img/all_bg.png"></image>
     <swiper
+      wx:if="{{showSiper}}"
       class="swiper"
       bindchange="moveText"
       current="{{current}}"
@@ -24,12 +26,12 @@
       interval="{{interval}}" 
       duration="{{duration}}">
       <block wx:key="index" wx:for="{{textArr}}">
-        <swiper-item class="huadong_content"  style="background-image:url('http://lijinghuan.com/images/bs/shan.png')">
+        <swiper-item class="huadong_content"  style="background-image:url('http://images.lijinghuan.com/bs/shan.png')">
           <view>
             <view class="content_box clearfix">
               <view class="event clearfix">
                 <view class="e_word">{{index}}</view>
-                <view class="e_content">三年前指责轻就那点钱那点钱接口那块轻就那点钱那点钱接口</view>
+                <view class="e_content">短期内的期望的年我确定更名卡我们分开文旅人发了发了</view>
               </view>
               <view class="hard clearfix">
                 <view class="hard_word">应对</view>
@@ -64,8 +66,10 @@
       </block>
     </swiper>
   </view>
-  
-  <view class="mark">
+  <view class="mark" wx:if="{{!showSiper}}">
+    <button class="shouquan" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">点击授权</button>
+  </view>
+  <view class="mark"  wx:if="{{showSiper}}">
     <image bindtap="goModifyRecord" class="edit" src="../../img/edit.png"></image>
     <image bindtap="goMakeRecord" class="new_write" src="../../img/write.png"></image>
     <image bindtap="goReview" class="history" src="../../img/look_back.png"></image>

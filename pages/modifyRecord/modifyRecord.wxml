@@ -52,10 +52,15 @@
 			<view class="green_title ziwo_title">自我认知</view>
 			<view class="tab_bar clearfix">
 				<view class="low">自我价值低</view>
-				<view>
-					<movable-area  class="pull_bar">
-				    <movable-view class="clearfix" style="width: 36rpx;height: 50rpx;" direction="horizontal" bindchange="onChange">
-				    	<view class="core clearfix">
+				<view class="clearfix">
+					<view class="bg_box clearfix">
+						<view style="width:{{left_width}}px" class="bar_left"></view>
+						<view style="width:{{right_width}}px" class="bar_right"></view>
+					</view>
+					<movable-area id="pull"  class="pull_bar">
+				    <movable-view  class="clearfix" style="width: 36rpx;height: 50rpx;" direction="horizontal" bindchange="onChange">
+
+				    	<view id="pull_btn" class="core clearfix">
 								<image class="bar" src="../../img/bar.png"></image>
 								<view class="core_son clearfix">
 									<view class="core_num">{{core}}</view>

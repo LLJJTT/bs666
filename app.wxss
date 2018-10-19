@@ -11,6 +11,14 @@
 image{
   display: block;
 }
+button{
+  background: #000;
+  border:0;
+  border-radius: 0;
+}
+button::after{
+  border:0;
+}
 page{
   font-family: SimHei;
   height: 100%;

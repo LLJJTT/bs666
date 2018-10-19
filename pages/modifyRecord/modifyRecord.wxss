@@ -147,7 +147,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 30rpx;
+	margin-top: 40rpx;
 }
 .low{
 	font-size: 28rpx;
@@ -168,10 +168,10 @@
 	width: 350rpx;
 	height: 24rpx;
 	border-radius: 40rpx;
-	background: #64bc8e;
+	/* background: #64bc8e; */
 	display: inline-block;
 	position: relative;
-	border:1rpx solid #dadada;
+	/* border:1rpx solid #dadada; */
 }
 .bar{
 	width: 36rpx;
@@ -239,4 +239,30 @@
 .active{
 	color: #dd6f72;
 	border:1rpx solid #dd6f72;
+}
+/*  */
+.bg_box{
+	width: 350rpx;
+	display: inline-block;
+	position: absolute;
+}
+.bar_left{
+	max-width: 350rpx;
+	width: 30rpx;
+	height: 25rpx;
+	border-radius: 40rpx 0 0 40rpx;
+	background: #64bc8e;
+	display: inline-block;
+	position: relative;
+}
+.bar_right{
+	max-width: 350rpx;
+	width: 320rpx;
+	height: 25rpx;
+	border-radius:0 40rpx 40rpx 0;
+	background: #fff;
+	border:1px solid #dadada;
+	border-left: none;
+	display: inline-block;
+	position: relative;
 }
