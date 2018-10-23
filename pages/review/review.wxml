@@ -12,7 +12,7 @@
 		</view>
 	</view>
 </view> 
-
+ 
 <!-- 时间切换 -->
 <view class="tab_date">
   <image bindtap="toLeft" src="../../img/black_arrow_left.png"></image>

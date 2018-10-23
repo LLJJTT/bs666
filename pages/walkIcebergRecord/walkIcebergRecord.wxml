@@ -1,6 +1,6 @@
 <view class="walk_record">
 <!-- 切换dot、right、left -->
-  <view class="tab">
+  <view class="tab" wx:if="{{showSiper}}">
     <view class="r_l_date">
         <image bindtap="toLeft" src="../../img/white_arrow_left.png"></image>
         <view class="time_date">{{currentMonth}}月{{currentDay}}日</view>

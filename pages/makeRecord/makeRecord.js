@@ -187,8 +187,9 @@ Page({
         method:'POST',
         success(res){
           if (res.data.code==200) {
+            wx.hideLoading()
             wx.showToast({
-              title: '保存成功',
+              title: '保存成功，正在跳转',
               icon: 'none',
               duration: 3000
             })
@@ -201,7 +202,14 @@ Page({
               yearn:'',
               core:'1'
             })
-            wx.hideLoading()
+            // 
+            setTimeout(function(){
+              wx.navigateTo({//保留当前页面，，打开到应用内的某个页面
+               url: '../walkIcebergRecord/walkIcebergRecord'
+              })
+            },3000)
+
+            
           }
         },
         fail(err){

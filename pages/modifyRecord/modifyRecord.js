@@ -116,7 +116,6 @@ Page({
           // 显示分数所在位置
           var lw = Number(that.data.core) * that.data.pullAreaWidth /10
           var rw = that.data.pullAreaWidth - lw
-          console.log(lw+'-'+rw)
           that.setData({
             left_width:lw,//绿色条
             right_width:rw,//白色条
@@ -263,13 +262,13 @@ Page({
         yearn:this.data.yearn,
         selfCognition:this.data.core
       }
-      console.log(addIce)
       wx.request({
         url: app.globalData.url+'ice/update', 
         data: addIce,
         method:'POST',
         success(res){
           if (res.data.code==200) {
+            wx.hideLoading()
             wx.showToast({
               title: '保存成功',
               icon: 'none',
@@ -281,10 +280,27 @@ Page({
               feel:'',
               viewpoint:'',
               expect:'',
+              expect_mine:'',
+              expect_other:'',
               yearn:'',
               core:'1'
             })
-            wx.hideLoading()
+
+            // 显示分数所在位置
+            var lw = Number(that.data.core) * that.data.pullAreaWidth /10
+            var rw = that.data.pullAreaWidth - lw
+            that.setData({
+              left_width:lw,//绿色条
+              right_width:rw,//白色条
+              x:lw - that.data.pullBtnWidth/2 - 6//x偏移量
+            })
+
+            // 保存成功跳转
+            setTimeout(function(){
+              wx.navigateTo({//保留当前页面，，打开到应用内的某个页面
+               url: '../walkIcebergRecord/walkIcebergRecord'
+              })
+            },3000)
           }
         },
         fail(err){
@@ -298,14 +314,11 @@ Page({
      var that  = this
     wx.showModal({
       title:"温馨提示",
-      content:"您是否要删除？",
+      content:"您确定要删除此条数据么？",
       success(res){
         console.log(res)
         if (res.confirm===true) {
-            wx.showLoading({
-            title:'删除中',
-            mask:true
-          })
+          
         // 向后台传数据
          
           var mainOpenid = app.globalData.openId
@@ -320,19 +333,15 @@ Page({
             success(res){
               if (res.data.code==200) {
                 wx.showToast({
-                  title: '删除成功',
-                  icon: 'none',
+                  title: '删除中',
+                  icon: 'loading',
                   duration: 3000
                 })
-                wx.hideLoading()
                 setTimeout(function(){ 
-                  wx.redirectTo({
+                  wx.navigateTo({
                     url: '../walkIcebergRecord/walkIcebergRecord'
                   })
-                  // wx.navigateTo({
-                  //   url: '../walkIcebergRecord/walkIcebergRecord'
-                  // })
-                },1000);
+                },3000);
               }
             },
             fail(err){

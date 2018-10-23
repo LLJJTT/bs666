@@ -67,7 +67,7 @@ Page({
            
           }else{
             that.setData({
-              ifWalkWord:'今日已走'
+              ifWalkWord:'今日已走冰山'
             })
           }
           wx.hideLoading()

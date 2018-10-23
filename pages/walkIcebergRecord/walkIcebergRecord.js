@@ -11,17 +11,18 @@ Page({
     currentYear:null,
     currentMonth:null,
     currentDay:null,
-    showSiper:wx.getStorageSync('showSiper'),
+    showSiper:false,
     show_no_data:false,
     iceId:'',
   },
   // 监听页面加载 
   onLoad(){
-    // console.log(app.globalData.code)
     this.getToday()
     var textArrLength = this.data.textArr.length
-    console.log(this.data.showSiper)
-    if (this.data.showSiper==true) {
+    if (wx.getStorageSync('showSiper')==true) {
+      this.setData({
+        showSiper:true
+      })
       this.getIceData()
     }
   },
@@ -97,7 +98,7 @@ Page({
         mask:true,
       }) 
       setTimeout(function(){ 
-        console.log(wx.getStorageSync('showSiper'))
+        console.log('授权成功缓存---'+wx.getStorageSync('showSiper'))
         that.setData({
           showSiper:wx.getStorageSync('showSiper'),
         })
@@ -122,9 +123,6 @@ Page({
         current:ind
       })
     }else{//左到头时
-      that.setData({
-        show_no_data:false,
-      })
       var yesterday = this.data.currentDay - 1
       if (this.data.currentDay==1) {//当前日期为1号
         var date = new Date();
@@ -164,9 +162,6 @@ Page({
         current: ind
       })
     }else{//右到头
-      that.setData({
-        show_no_data:false,
-      })
       var tomorrow = this.data.currentDay + 1
       var date = new Date();
       var d = new Date(date.getFullYear(), this.data.currentMonth, 0);
@@ -190,6 +185,7 @@ Page({
           currentDay:tomorrow,
         })
       }
+
       this.getIceData()
     }
   },
@@ -229,10 +225,14 @@ Page({
     var that = this
     that.setData({
       textArr:[],
+      show_no_data:false,
+      current:0,
+      activeCurrent:0
     })
     wx.showLoading({
       title:'获取数据中',
-      mask:true
+      mask:true,
+      duration:100000
     })
     var mainOpenid = app.globalData.openId
     //获取月份长度 后端需要格式 2018-09-06
@@ -265,33 +265,27 @@ Page({
       method:'POST',
       success(res){
         if (res.data.code==200) {
+          that.setData({
+            textArr:res.data.data,
+            
+          })
           if (res.data.data.length==0) {
-            wx.showToast({
-              title: '获取数据中',
-              icon: 'loading',
-              duration: 1500
-            })
-            setTimeout(function(){ 
+            setTimeout(function(){
               that.setData({
-                textArr:res.data.data,
-                show_no_data:true,
-              })
-            },1500);
+                show_no_data:true
+              }) 
+              wx.hideLoading()
+            },1500)
+              
           }else{
-            wx.showToast({
-              title: '获取数据中',
-              icon: 'loading',
-              duration: 1500
-            })
             setTimeout(function(){ 
               that.setData({
-                textArr:res.data.data,
                 show_no_data:false
               })
+              wx.hideLoading()
             },1500);
             
           }
-          wx.hideLoading()
         }
       },
       fail(err){

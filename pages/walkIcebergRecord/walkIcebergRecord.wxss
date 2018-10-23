@@ -87,6 +87,7 @@ swiper-item{
 	/* background: blue; */
 	position: relative;
 	margin-top: 250rpx;
+	max-height: 700rpx;
 	overflow: auto;
 }
 /* 事件 */
