@@ -1,22 +1,29 @@
 var app = getApp();
 Page({
   data: {
-    textArr: [1,2,3,4],
+    textArr: [],
     indicatorDots:false,  //是否显示面板指示点
     autoplay: false,      //是否自动切换
     interval: 1000,       //自动切换时间间隔
     duration: 100,      //滑动动画时长
     current:0,//当前所在滑块的index 
     activeCurrent:0,
+    currentYear:null,
     currentMonth:null,
     currentDay:null,
-    showSiper:wx.getStorageSync('showSiper')
+    showSiper:wx.getStorageSync('showSiper'),
+    show_no_data:false,
+    iceId:'',
   },
   // 监听页面加载 
   onLoad(){
     // console.log(app.globalData.code)
     this.getToday()
     var textArrLength = this.data.textArr.length
+    console.log(this.data.showSiper)
+    if (this.data.showSiper==true) {
+      this.getIceData()
+    }
   },
   // 监听页面-初次-渲染完成
   onReady(){
@@ -33,8 +40,9 @@ Page({
     var month = date.getMonth() + 1
     var day = date.getDate()
     this.setData({
+      currentYear:year,
       currentMonth:month,
-      currentDay:day,
+      currentDay:day
     })
     // console.log(year+'-'+month+'-'+day)
   },
@@ -114,16 +122,22 @@ Page({
         current:ind
       })
     }else{//左到头时
-      wx.showLoading({
-        title:'切换中',
-        mask:true
+      that.setData({
+        show_no_data:false,
       })
-     
       var yesterday = this.data.currentDay - 1
       if (this.data.currentDay==1) {//当前日期为1号
+        var date = new Date();
+        var d = new Date(date.getFullYear(), this.data.currentMonth, 0);
+        d.getDate()
+        this.setData({
+          currentDay:d.getDate(),//当月的天数
+        })
+
         if (this.data.currentMonth==1) {
           this.setData({//月份为12
             currentMonth:12,
+            currentYear:this.data.currentYear - 1
           })
         }
         else{
@@ -131,18 +145,13 @@ Page({
             currentMonth:this.data.currentMonth - 1,
           })
         }
-        var date = new Date();
-        var d = new Date(date.getFullYear(), this.data.currentMonth, 0);
-        d.getDate()
-        this.setData({
-          currentDay:d.getDate(),//当月的天数
-        })
+        
       }else{
         this.setData({
           currentDay:yesterday,
         })
       }
-      wx.hideLoading()
+      this.getIceData()
     }
   },
   // 右切换
@@ -155,9 +164,8 @@ Page({
         current: ind
       })
     }else{//右到头
-      wx.showLoading({
-        title:'切换中',
-        mask:true
+      that.setData({
+        show_no_data:false,
       })
       var tomorrow = this.data.currentDay + 1
       var date = new Date();
@@ -166,6 +174,7 @@ Page({
         if (this.data.currentMonth==12) {//当月为12月
           this.setData({//月份为1月
             currentMonth:1,
+            currentYear:this.data.currentYear + 1
           })
         }
         else{
@@ -181,7 +190,7 @@ Page({
           currentDay:tomorrow,
         })
       }
-      wx.hideLoading()
+      this.getIceData()
     }
   },
   // 判断登录
@@ -195,13 +204,99 @@ Page({
     })
   },
   goModifyRecord(){
-    wx.navigateTo({
-      url: '../modifyRecord/modifyRecord'
-    })
+    if (this.data.textArr.length==0) {
+      wx.showToast({
+        title: '请先新建记录',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      var id = this.data.textArr[this.data.activeCurrent].id
+      wx.navigateTo({
+        url: '../modifyRecord/modifyRecord?id='+id
+      })
+    }
+    
   },
   goReview(){
     wx.navigateTo({
       url: '../review/review'
     })
   },
+  // 获取冰山记录信息
+  getIceData(){
+    var that = this
+    that.setData({
+      textArr:[],
+    })
+    wx.showLoading({
+      title:'获取数据中',
+      mask:true
+    })
+    var mainOpenid = app.globalData.openId
+    //获取月份长度 后端需要格式 2018-09-06
+    const date = new Date()
+    var strYear = this.data.currentYear
+    var strMonth = this.data.currentMonth.toString().length
+    var strDay = this.data.currentDay.toString().length
+    var yearMonthDay = ''
+    var Month,Day
+    if (strMonth==1) {
+      Month = '0' + this.data.currentMonth.toString()
+    }
+    else{
+      Month = this.data.currentMonth.toString()
+    }
+    if (strDay==1) {
+      Day = '0' + this.data.currentDay.toString()
+    }
+    else{
+      Day = this.data.currentDay.toString()
+    }
+    yearMonthDay = strYear + '-' + Month + '-' + Day//年月日 格式：2018-09-06
+
+    wx.request({
+      url: app.globalData.url+'ice/getRecords', 
+      data: {
+        mainOpenid:mainOpenid,
+        date:yearMonthDay
+      },
+      method:'POST',
+      success(res){
+        if (res.data.code==200) {
+          if (res.data.data.length==0) {
+            wx.showToast({
+              title: '获取数据中',
+              icon: 'loading',
+              duration: 1500
+            })
+            setTimeout(function(){ 
+              that.setData({
+                textArr:res.data.data,
+                show_no_data:true,
+              })
+            },1500);
+          }else{
+            wx.showToast({
+              title: '获取数据中',
+              icon: 'loading',
+              duration: 1500
+            })
+            setTimeout(function(){ 
+              that.setData({
+                textArr:res.data.data,
+                show_no_data:false
+              })
+            },1500);
+            
+          }
+          wx.hideLoading()
+        }
+      },
+      fail(err){
+        console.log(err)
+      }
+    })
+  }
 })

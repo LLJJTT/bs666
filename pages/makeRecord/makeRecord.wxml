@@ -4,7 +4,7 @@
 		<view>
 			<view class="red_title shijian_title">事件</view>
 			<view class="shijian_inp">
-				<input type="text" placeholder="行为， 故事内容"/>
+				<input type="text" placeholder="行为， 故事内容" value="{{event}}" bindinput="getEvent"/>
 			</view>
 		</view>
 		<view>
@@ -20,13 +20,13 @@
 		<view>
 			<view class="blue_title ganshou_title">感受</view>
 			<view class="ganshou_inp">
-				<input type="text" placeholder="感受的决定"/>
+				<input type="text" placeholder="感受的决定" value="{{feel}}" bindinput="getFeel"/>
 			</view>
 		</view>
 		<view>
-			<view class="blue_title guandian_title">应对</view>
+			<view class="blue_title guandian_title">观点</view>
 			<view class="guandian_inp">
-				<input type="text" placeholder="信念、假设、预设立场、主观现实、认知"/>
+				<input type="text" placeholder="信念、假设、预设立场、主观现实、认知" bindinput="getViewPoint" value="{{viewpoint}}"/>
 			</view>
 		</view>
 	</view>
@@ -36,16 +36,16 @@
 		<view>
 			<view class="green_title qidai_title">期待</view>
 			<view class="qidai_inp">
-				<input type="text" placeholder="对自己"/>
+				<input type="text" placeholder="对自己" value="{{expect_mine}}" bindinput="getExpectMine"/>
 			</view>
 			<view class="qidai_inp_end">
-				<input type="text" placeholder="对他人"/>
+				<input type="text" placeholder="对他人" value="{{expect_other}}" bindinput="getExpectOther" />
 			</view>
 		</view>
 		<view>
 			<view class="green_title kewang_title">渴望</view>
 			<view class="kewang_inp">
-				<input type="text" placeholder="希望怎样对待"/>
+				<input type="text" placeholder="希望怎样对待" value="{{yearn}}" bindinput="getYearn" />
 			</view>
 		</view>
 		<view>
@@ -75,6 +75,6 @@
 		</view>
 	</view>
 	<view>
-		<button class="save">保存</button>
+		<button bindtap="saveData" class="save">保存</button>
 	</view>
 </view>

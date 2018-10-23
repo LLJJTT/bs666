@@ -9,13 +9,15 @@
     <view class="dot_fa clearfix" wx:if="{{showSiper}}">
       <view class="{{index == activeCurrent ? 'active':''}} dot" wx:key="index" wx:for="{{textArr}}"></view>
     </view>
-  </view>
+  </view> 
 
   <!-- 滑动切换 -->
   <!-- style="background-image:url('../../img/bg.png')" -->
   <view class="swiper_box" >
     <image wx:if="{{showSiper}}" class="bg" src="../../img/bg.png"></image>
     <image wx:if="{{!showSiper}}" class="shan_img" src="../../img/all_bg.png"></image>
+    <view wx:if="{{show_no_data}}" class="noData">暂无数据</view>
+    <!-- <image wx:if="{{showSiper}}" class="shan_img" src="../../img/all_bg.png"></image> -->
     <swiper
       wx:if="{{showSiper}}"
       class="swiper"
@@ -26,39 +28,39 @@
       interval="{{interval}}" 
       duration="{{duration}}">
       <block wx:key="index" wx:for="{{textArr}}">
-        <swiper-item class="huadong_content"  style="background-image:url('http://images.lijinghuan.com/bs/shan.png')">
+        <swiper-item class="huadong_content"  style="background-image:url('https://wise-edu.oss-cn-beijing.aliyuncs.com/statics/iceberg_bg.png ')">
           <view>
             <view class="content_box clearfix">
               <view class="event clearfix">
-                <view class="e_word">{{index}}</view>
-                <view class="e_content">短期内的期望的年我确定更名卡我们分开文旅人发了发了</view>
+                <view class="e_word">事件</view>
+                <view class="e_content">{{item.event}}</view>
               </view>
               <view class="hard clearfix">
                 <view class="hard_word">应对</view>
-                <view class="hard_content">指责</view>
+                <view class="hard_content">{{item.answer}}</view>
               </view>
               <view class="feel clearfix">
                 <view class="feel_word">感受</view>
-                <view class="feel_content">气氛、烦躁气氛</view>
+                <view class="feel_content">{{item.feel}}</view>
               </view>
               <view class="feel clearfix">
                 <view class="feel_word">观点</view>
-                <view class="feel_content">无法接受安静安静阿卡</view>
+                <view class="feel_content">{{item.viewpoint}}</view>
               </view>
               <view class="hope clearfix">
                 <view class="hope_word">期待</view>
-                <view class="hope_content">对自己:不要太好斗,\n对他人:讲道理</view>
+                <view class="hope_content">{{item.expect}}</view>
               </view>
               <view class="hope clearfix">
                 <view class="hope_word">渴望</view>
-                <view class="hope_content">被尊重</view>
+                <view class="hope_content">{{item.yearn}}</view>
               </view>
               <view class="autognosis clearfix">
                 <view class="autognosis_word">
                   <view class="ziwo">自我</view>
                   <view class="renzhi">认知</view>
                 </view> 
-                <view class="autognosis_content">8分，自我价值高</view>
+                <view class="autognosis_content">{{item.selfCognition}}分，自我价值{{item.selfCognition>5 ? '高':'低'}}</view>
               </view>
             </view>
           </view>

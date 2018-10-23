@@ -32,7 +32,7 @@
 	position: absolute;
 	right: 40rpx;
 	top: 20rpx;
-	z-index: 999999;
+	z-index: 9;
 }
 .word{
 	font-size: 26rpx;

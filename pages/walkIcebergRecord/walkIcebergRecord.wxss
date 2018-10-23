@@ -55,6 +55,7 @@ swiper-item{
 	height: 40rpx;
   	position: relative;
 	vertical-align: middle;
+	padding: 10rpx;
 }
 .r_l_date .time_date{
 	display: inline-block;
@@ -286,5 +287,14 @@ swiper-item{
 	color: #fff;
 	width: 400rpx;
 	border-radius: 80rpx;
+}
+.noData{
+	color: #fff;
+	font-size: 32rpx;
+	position:fixed;
+ 	left:50%;
+   	top:50%;
+    transform:translate(-50%,-50%);
+ 	z-index:1000;   
 }
 

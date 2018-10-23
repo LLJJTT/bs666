@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/review/review",
     "pages/walkIcebergRecord/walkIcebergRecord",
     "pages/makeRecord/makeRecord",
+    "pages/review/review",
     "pages/modifyRecord/modifyRecord",
     "pages/index/index"
   ],

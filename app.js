@@ -13,7 +13,7 @@ App({
     // 登录
     wx.login({
       success: res => {
-        // console.log(res)
+        console.log(res)
         this.globalData.code = res.code
         // console.log('登录---'+res.code)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -45,7 +45,7 @@ App({
     })
   },
   globalData: {
-    url:'http://192.168.0.157:789/',
+    url:'http://101.201.196.220:2001/',//test api url
     userInfo: null,//用户信息
     code: null,//code码 换oppenId、session_key等
     appId:'wx5191fc5ad1a8a40c',
