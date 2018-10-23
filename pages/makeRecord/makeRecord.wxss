@@ -230,7 +230,6 @@
 	display: inline-block;
 	position: relative;
 	top: -19rpx;
-	/* left: 40rpx; */
 }
 .core_son{
 	position: absolute;

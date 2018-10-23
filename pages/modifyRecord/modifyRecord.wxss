@@ -171,7 +171,6 @@
 	/* background: #64bc8e; */
 	display: inline-block;
 	position: relative;
-	/* border:1rpx solid #dadada; */
 }
 .bar{
 	width: 36rpx;
@@ -182,7 +181,6 @@
 	display: inline-block;
 	position: relative;
 	top: -19rpx;
-	/* left: 40rpx; */
 }
 .core_son{
 	position: absolute;

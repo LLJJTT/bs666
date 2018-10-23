@@ -15,25 +15,20 @@ Page({
     show_no_data:false,
     iceId:'',
   },
+
   // 监听页面加载 
   onLoad(){
     this.getToday()
-    var textArrLength = this.data.textArr.length
-    if (wx.getStorageSync('showSiper')==true) {
+    if (wx.getStorageSync('showSiper')==true) {//如果缓存 -存在
       this.setData({
         showSiper:true
       })
       this.getIceData()
     }
   },
-  // 监听页面-初次-渲染完成
-  onReady(){
 
-  },
-  // 监听页面显示
-  onShow(){
-  },
   // 自定义函数
+
   // 获取今天年月
   getToday(){
     const date = new Date()
@@ -45,8 +40,8 @@ Page({
       currentMonth:month,
       currentDay:day
     })
-    // console.log(year+'-'+month+'-'+day)
   },
+
   // 官方授权
   bindGetUserInfo(e){
     if (e.detail.errMsg=="getUserInfo:fail auth deny") {
@@ -63,9 +58,7 @@ Page({
       })
       var that = this
       var e = e.detail
-      // console.log(e)//授权成功返回
       app.globalData.userInfo = e.userInfo
-
       new Promise((resolve, reject) => {
         wx.login({//获取code换openid
           success: function (res) {
@@ -91,14 +84,11 @@ Page({
         // console.log(res)
         app.globalData.code = res.code
       })
-
-     
       wx.showLoading({
         title:'授权成功',
         mask:true,
       }) 
       setTimeout(function(){ 
-        console.log('授权成功缓存---'+wx.getStorageSync('showSiper'))
         that.setData({
           showSiper:wx.getStorageSync('showSiper'),
         })
@@ -107,12 +97,14 @@ Page({
       }, 1500);
     }
   },
+
   // 一次滑动完成
   moveText(e){
     this.setData({
       activeCurrent:e.detail.current
     })
   },
+
   // 左切换
   toLeft(){
     var that = this;
@@ -143,7 +135,6 @@ Page({
             currentMonth:this.data.currentMonth - 1,
           })
         }
-        
       }else{
         this.setData({
           currentDay:yesterday,
@@ -152,6 +143,7 @@ Page({
       this.getIceData()
     }
   },
+
   // 右切换
   toRight(){
     var that = this;
@@ -185,41 +177,10 @@ Page({
           currentDay:tomorrow,
         })
       }
-
       this.getIceData()
     }
   },
-  // 判断登录
-  judgeLogin(){
 
-  },
-  // 跳转
-  goMakeRecord(){
-    wx.navigateTo({
-      url: '../makeRecord/makeRecord'
-    })
-  },
-  goModifyRecord(){
-    if (this.data.textArr.length==0) {
-      wx.showToast({
-        title: '请先新建记录',
-        icon: 'none',
-        duration: 2000
-      })
-    }
-    else{
-      var id = this.data.textArr[this.data.activeCurrent].id
-      wx.navigateTo({
-        url: '../modifyRecord/modifyRecord?id='+id
-      })
-    }
-    
-  },
-  goReview(){
-    wx.navigateTo({
-      url: '../review/review'
-    })
-  },
   // 获取冰山记录信息
   getIceData(){
     var that = this
@@ -255,7 +216,6 @@ Page({
       Day = this.data.currentDay.toString()
     }
     yearMonthDay = strYear + '-' + Month + '-' + Day//年月日 格式：2018-09-06
-
     wx.request({
       url: app.globalData.url+'ice/getRecords', 
       data: {
@@ -267,7 +227,6 @@ Page({
         if (res.data.code==200) {
           that.setData({
             textArr:res.data.data,
-            
           })
           if (res.data.data.length==0) {
             setTimeout(function(){
@@ -275,16 +234,14 @@ Page({
                 show_no_data:true
               }) 
               wx.hideLoading()
-            },1500)
-              
+            },800)
           }else{
             setTimeout(function(){ 
               that.setData({
                 show_no_data:false
               })
               wx.hideLoading()
-            },1500);
-            
+            },800);
           }
         }
       },
@@ -292,5 +249,53 @@ Page({
         console.log(err)
       }
     })
-  }
+  },
+
+  // 跳转
+
+  // 新建新纪录
+  goMakeRecord(){
+    const date = new Date()
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var nowYMD = year+'-'+month+'-'+day
+    var currentYMD = this.data.currentYear+'-'+this.data.currentMonth+'-'+this.data.currentDay
+    if (nowYMD!=currentYMD) {
+      wx.showToast({
+        title: '只能创建今天的记录',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '../makeRecord/makeRecord'
+      })
+    }
+  },
+
+  // 修改记录
+  goModifyRecord(){
+    if (this.data.textArr.length==0) {
+      wx.showToast({
+        title: '请先新建记录',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      var id = this.data.textArr[this.data.activeCurrent].id
+      wx.navigateTo({
+        url: '../modifyRecord/modifyRecord?id='+id
+      })
+    }
+  },
+  
+  // 去日历页
+  goReview(){
+    wx.navigateTo({
+      url: '../review/review'
+    })
+  },
 })

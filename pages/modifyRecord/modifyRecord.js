@@ -28,29 +28,20 @@ Page({
     iceId:null,
     x:0
   },
+
   // 监听页面加载
   onLoad(option){
     // 接收ice id
     this.setData({
       iceId:option.id
     })
-
     this.getPullWidth()
-
     var that =  this
     setTimeout(function(){ 
       that.getModifyData()
     },300);
-    
-    
   },
-  // 监听页面-初次-渲染完成
-  onReady(){
 
-  },
-  // 监听页面显示
-  onShow(){
-  },
   // 获取滑块需求参数
   getPullWidth(){
     const that = this
@@ -66,7 +57,9 @@ Page({
       })
     })
   },
-  getModifyData(){//根据id 换详情
+
+  //根据id 换详情
+  getModifyData(){
     wx.showLoading({
       title:'获取数据中',
       mask:true
@@ -81,7 +74,6 @@ Page({
       },
       method:'POST',
       success(res){
-        // console.log(res.data)
         if (res.data.code==200) {
           that.setData({
             event:res.data.data[0].event,
@@ -129,12 +121,12 @@ Page({
       }
     })
   },
+
   // 点击开始
   onChange(e){
     var x = e.detail.x //x轴便宜量
     var lw = x+this.data.pullBtnWidth/2 + 6
     var rw = this.data.pullAreaWidth -lw
-    // console.log(lw/350)
     var b = Math.ceil(10*lw/this.data.pullAreaWidth)
     this.setData({
       left_width:lw,
@@ -142,13 +134,18 @@ Page({
       core:b
     })
   },
+
   // 获取输入框内容
-  getEvent(e){//事件
+
+  //事件
+  getEvent(e){
     this.setData({
       event:e.detail.value
     })
   },
-  selectActive(e){//应对
+
+  //应对
+  selectActive(e){
     this.setData({
       activeCurrent:e.target.dataset.index
     })
@@ -158,31 +155,42 @@ Page({
       })
     }
   },
-  getFeel(e){//感受
+
+  //感受
+  getFeel(e){
     this.setData({
       feel:e.detail.value
     })
   },
-  getViewPoint(e){//观点
+
+  //观点
+  getViewPoint(e){
     this.setData({
       viewpoint:e.detail.value
     })
   },
-  getExpectMine(e){//对自己期望
+
+  //对自己期望
+  getExpectMine(e){
     this.setData({
       expect_mine:e.detail.value
     })
   },
-  getExpectOther(e){//对他人期望
+
+  //对他人期望
+  getExpectOther(e){
     this.setData({
       expect_other:e.detail.value
     })
   },
-  getYearn(e){//渴望
+
+  //渴望
+  getYearn(e){
     this.setData({
       yearn:e.detail.value
     })
   },
+
   // 点击保存
   saveData(){
     if (!this.data.event) {
@@ -295,9 +303,9 @@ Page({
               x:lw - that.data.pullBtnWidth/2 - 6//x偏移量
             })
 
-            // 保存成功跳转
+            // 保存成功跳转冰山界面
             setTimeout(function(){
-              wx.navigateTo({//保留当前页面，，打开到应用内的某个页面
+              wx.navigateTo({//保留当前页面
                url: '../walkIcebergRecord/walkIcebergRecord'
               })
             },3000)
@@ -309,18 +317,17 @@ Page({
       })
     }
   },
+  
   // 删除
   deleteData(){
-     var that  = this
+    var that  = this
     wx.showModal({
       title:"温馨提示",
       content:"您确定要删除此条数据么？",
       success(res){
         console.log(res)
         if (res.confirm===true) {
-          
         // 向后台传数据
-         
           var mainOpenid = app.globalData.openId
           var addIce = {
             mainOpenid: mainOpenid,
@@ -351,6 +358,5 @@ Page({
         }
       }
     })
-    
   }
 })

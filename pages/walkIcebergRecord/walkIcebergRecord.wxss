@@ -90,6 +90,9 @@ swiper-item{
 	max-height: 700rpx;
 	overflow: auto;
 }
+.content_box view{
+	overflow-x: auto;
+}
 /* 事件 */
 .event{
 	color: #fff;

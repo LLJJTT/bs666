@@ -12,12 +12,10 @@
   </view> 
 
   <!-- 滑动切换 -->
-  <!-- style="background-image:url('../../img/bg.png')" -->
   <view class="swiper_box" >
     <image wx:if="{{showSiper}}" class="bg" src="../../img/bg.png"></image>
     <image wx:if="{{!showSiper}}" class="shan_img" src="../../img/all_bg.png"></image>
     <view wx:if="{{show_no_data}}" class="noData">暂无数据</view>
-    <!-- <image wx:if="{{showSiper}}" class="shan_img" src="../../img/all_bg.png"></image> -->
     <swiper
       wx:if="{{showSiper}}"
       class="swiper"
@@ -68,6 +66,7 @@
       </block>
     </swiper>
   </view>
+  <!-- 点击按钮 授权-跳转记录、日历 -->
   <view class="mark" wx:if="{{!showSiper}}">
     <button class="shouquan" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">点击授权</button>
   </view>

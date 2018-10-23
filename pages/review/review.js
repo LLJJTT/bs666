@@ -19,7 +19,6 @@ Page({
     myselfData:[],//更改格式-循环
     ifWalkWord:null,//今日是否走冰山状态
     dayStatus:0,
-
   },
   // 监听页面加载
   onLoad(e){
@@ -29,11 +28,13 @@ Page({
     this.getCalendar()
   },
   // 自定义函数
-// Api-获取日历 
+
+  //Api-获取日历 
   getCalendar(){
     wx.showLoading({
       title:'获取中',
-      mask:true
+      mask:true,
+      duration:100000
     })
     var that  = this
     var mainOpenid = app.globalData.openId
@@ -58,19 +59,24 @@ Page({
           that.setData({
             backData:calendar,
             walk_days:durationDays
-          }) 
+          })
+
+          // 转换数据作为循环渲染的条件
           that.changeBackData()
-          if (res.data.data.todayStatus==0) {// 判断今天是否走冰山
+
+          // 判断今天是否走冰山
+          if (res.data.data.todayStatus==0) {
             that.setData({
               ifWalkWord:'今日还未走冰山'
             })
-           
           }else{
             that.setData({
               ifWalkWord:'今日已走冰山'
             })
           }
-          wx.hideLoading()
+          setTimeout(function(){
+            wx.hideLoading()
+          },3000)
         }
       },
       fail(err){
@@ -96,9 +102,9 @@ Page({
     this.showNowStatus()
     this.changeMargin()
     this.getCalendar()
-    // this.changeBackData()
     wx.hideLoading()
   },
+
   // 右切换
   toRight(){
     wx.showLoading({
@@ -117,9 +123,9 @@ Page({
     this.showNowStatus()
     this.changeMargin()
     this.getCalendar()
-    // this.changeBackData()
     wx.hideLoading()
   },
+
   // 点击按钮-获取日期
   getDate(){
     wx.showLoading({
@@ -132,6 +138,7 @@ Page({
     })
     wx.hideLoading()
   },
+
   // 规范日期
   getToday(){
     // 定义显示年月范围
@@ -147,9 +154,6 @@ Page({
     // 获取今天年月
     var month = date.getMonth() + 1
     var year = date.getFullYear()
-    // 后台传过来的年月
-    // var month = parseInt(this.data.dateArr[1].month)
-    // var year = parseInt(this.data.dateArr[0].year)
     this.setData({
       change_year:year,
       change_month:month,
@@ -161,11 +165,10 @@ Page({
       dayStatus:date.getDate()//今天显示blue_point
     })
   },
+
   // 获取本月的天数
   getNowMonthDate(){
     var date = new Date();
-    // var year = date.getFullYear();
-    // var month = date.getMonth()+1;
     var d = new Date(this.data.change_year, this.data.change_month, 0);
     var now = []
     for(var i=0;i<d.getDate();i++){
@@ -175,6 +178,7 @@ Page({
       nowMonthArr:now
     })
   },
+
   // 初始化判断本月的1号是周几
   getFirstDayWeek(){
     var date = new Date()
@@ -190,8 +194,8 @@ Page({
     this.setData({
       move:weekday_ml
     })
-
   },
+
   // 滚动选择日期时
   bindChange: function(e) {
     const val = e.detail.value
@@ -200,6 +204,7 @@ Page({
       change_month: this.data.months[val[1]],
     })
   },
+
   // 动态改变Margin
   changeMargin(){
     this.getNowMonthDate()
@@ -216,7 +221,8 @@ Page({
       move:weekday_ml,
     })
   },
-  // 确定
+
+  // 点击确定 - 提交时间
   sureGetDate(){
     wx.showLoading({
       title:'切换中',
@@ -232,6 +238,7 @@ Page({
     })
     wx.hideLoading()
   },
+
   // 取消
   cancleGetDate(){
     this.setData({
@@ -239,17 +246,18 @@ Page({
       pickerViewFlag:true,
     })
   },
-  // 点走冰山
+
+  // 点走冰山跳转 新建冰山记录页
   goWalkIce(){
     wx.navigateTo({
       url: '../makeRecord/makeRecord'
     })
   },
+
   // 更改后台数据为了展示不同状态
   changeBackData(){
     var myselfData = []
     var d = new Date(this.data.year, this.data.month, 0);
-      // console.log(this.data.backData)
     if(this.data.backData!=null){
       for(var i=0;i<d.getDate();i++){
         myselfData.push({"status":'0'})
@@ -262,7 +270,6 @@ Page({
           myselfData[item.day-1].status = -1
         }
       })
-      
     }
     else{
       var myselfData = []
@@ -274,6 +281,7 @@ Page({
       myselfData:myselfData
     })
   },
+  
   // 是否显示今天以及本月的笑脸、蓝点
   showNowStatus(){
     const date = new Date()
