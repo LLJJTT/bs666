@@ -19,10 +19,12 @@ Page({
   // 监听页面加载 
   onLoad(){
     this.getToday()
+    console.log('展示swier---'+wx.getStorageSync('showSiper'))
     if (wx.getStorageSync('showSiper')==true) {//如果缓存 -存在
       this.setData({
         showSiper:true
       })
+
       this.getIceData()
     }
   },
@@ -193,7 +195,7 @@ Page({
     wx.showLoading({
       title:'获取数据中',
       mask:true,
-      duration:100000
+      duration:10000
     })
     var mainOpenid = app.globalData.openId
     //获取月份长度 后端需要格式 2018-09-06
@@ -224,10 +226,25 @@ Page({
       },
       method:'POST',
       success(res){
+        // console.log(res.data.code)
+        // console.log(res.data.data.length)
         if (res.data.code==200) {
           that.setData({
             textArr:res.data.data,
           })
+          var arr1 = []
+          that.data.textArr.map((item,index,arr) =>{
+            var strOther ="对他人："
+            var mineWord = item.expect.split(strOther)[0];//对自己：text
+            var otherWord = strOther+item.expect.split(strOther)[1];//对他人：text
+            var showWord = mineWord + '\n' + otherWord
+            item.expect = showWord
+            arr1 = arr
+          })
+          // console.log(arr1)
+          that.setData({
+              textArr:arr1,
+            })
           if (res.data.data.length==0) {
             setTimeout(function(){
               that.setData({

@@ -60,7 +60,6 @@ Page({
             backData:calendar,
             walk_days:durationDays
           })
-
           // 转换数据作为循环渲染的条件
           that.changeBackData()
 
@@ -258,7 +257,7 @@ Page({
   changeBackData(){
     var myselfData = []
     var d = new Date(this.data.year, this.data.month, 0);
-    if(this.data.backData!=null){
+    if(this.data.backData.length!=0){
       for(var i=0;i<d.getDate();i++){
         myselfData.push({"status":'0'})
       }
