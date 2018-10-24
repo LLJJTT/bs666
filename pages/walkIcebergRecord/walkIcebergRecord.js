@@ -232,6 +232,7 @@ Page({
           that.setData({
             textArr:res.data.data,
           })
+          // 对期待 他人和自己换行
           var arr1 = []
           that.data.textArr.map((item,index,arr) =>{
             var strOther ="对他人："

@@ -47,7 +47,7 @@
               </view>
               <view class="hope clearfix">
                 <view class="hope_word">期待</view>
-                <view class="hope_content">{{item.expect}}</view>
+                <view class="hope_content"><text>{{item.expect}}</text></view>
               </view>
               <view class="hope clearfix">
                 <view class="hope_word">渴望</view>
