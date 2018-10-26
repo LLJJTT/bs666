@@ -117,6 +117,11 @@ Page({
         }
       },
       fail(err){
+        wx.showToast({
+          title: '数据加载失败',
+          icon: 'loading',
+          duration: 2000
+        })
         console.log(err)
       }
     })
@@ -312,6 +317,11 @@ Page({
           }
         },
         fail(err){
+          wx.showToast({
+            title: '数据加载失败',
+            icon: 'loading',
+            duration: 2000
+          })
           console.log(err)
         }
       })
@@ -348,7 +358,7 @@ Page({
                   wx.navigateTo({
                     url: '../walkIcebergRecord/walkIcebergRecord'
                   })
-                },3000);
+                },3100);
               }
             },
             fail(err){

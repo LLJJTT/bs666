@@ -18,17 +18,26 @@ Page({
 
   // 监听页面加载 
   onLoad(){
-    this.getToday()
-    console.log('展示swier---'+wx.getStorageSync('showSiper'))
-    if (wx.getStorageSync('showSiper')==true) {//如果缓存 -存在
-      this.setData({
-        showSiper:true
-      })
-
-      this.getIceData()
-    }
+    var that = this
+    that.getToday()
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          that.setData({
+            showSiper:false
+          })
+          console.log('没授权----No')
+        }
+        else{
+          that.getIceData()
+          that.setData({
+            showSiper:true
+          })
+          console.log('已经授权-----Yes')
+        }
+      }
+    })
   },
-
   // 自定义函数
 
   // 获取今天年月
@@ -43,7 +52,7 @@ Page({
       currentDay:day
     })
   },
-
+  
   // 官方授权
   bindGetUserInfo(e){
     if (e.detail.errMsg=="getUserInfo:fail auth deny") {
@@ -54,10 +63,6 @@ Page({
       })
     }
     else if (e.detail.errMsg=="getUserInfo:ok"){
-      wx.setStorage({
-        key: 'showSiper',
-        data: true
-      })
       var that = this
       var e = e.detail
       app.globalData.userInfo = e.userInfo
@@ -90,13 +95,14 @@ Page({
         title:'授权成功',
         mask:true,
       }) 
-      setTimeout(function(){ 
-        that.setData({
-          showSiper:wx.getStorageSync('showSiper'),
-        })
-        that.onLoad()
-        wx.hideLoading()
-      }, 1500);
+      that.setData({
+        showSiper:true,
+      })
+      that.onLoad()
+      wx.hideLoading()
+      // setTimeout(function(){ 
+        
+      // }, 2000);
     }
   },
 
@@ -125,7 +131,6 @@ Page({
         this.setData({
           currentDay:d.getDate(),//当月的天数
         })
-
         if (this.data.currentMonth==1) {
           this.setData({//月份为12
             currentMonth:12,
@@ -195,7 +200,7 @@ Page({
     wx.showLoading({
       title:'获取数据中',
       mask:true,
-      duration:10000
+      duration:100000
     })
     var mainOpenid = app.globalData.openId
     //获取月份长度 后端需要格式 2018-09-06
@@ -226,7 +231,6 @@ Page({
       },
       method:'POST',
       success(res){
-        // console.log(res.data.code)
         // console.log(res.data.data.length)
         if (res.data.code==200) {
           that.setData({
@@ -264,7 +268,11 @@ Page({
         }
       },
       fail(err){
-        console.log(err)
+        wx.showToast({
+          title: '数据加载失败,请重新加载小程序',
+          duration: 5000
+        })
+        console.log('请求失败'+err.errMsg)
       }
     })
   },

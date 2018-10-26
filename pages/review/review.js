@@ -2,7 +2,7 @@ var app = getApp();
 Page({
   data: {
     week:['日','一','二','三','四','五','六'],
-    walk_days:'13',
+    walk_days:'0',
     years: [],
     year: '',
     months: [],
@@ -17,7 +17,7 @@ Page({
     color_status:'#64bc8e',
     backData:[],//后台返回的日历
     myselfData:[],//更改格式-循环
-    ifWalkWord:null,//今日是否走冰山状态
+    ifWalkWord:'今日还未走冰山',//今日是否走冰山状态
     dayStatus:0,
   },
   // 监听页面加载
@@ -33,8 +33,7 @@ Page({
   getCalendar(){
     wx.showLoading({
       title:'获取中',
-      mask:true,
-      duration:100000
+      mask:true
     })
     var that  = this
     var mainOpenid = app.globalData.openId
@@ -75,20 +74,21 @@ Page({
           }
           setTimeout(function(){
             wx.hideLoading()
-          },3000)
+          },1000)
         }
       },
       fail(err){
+        wx.showToast({
+          title: '数据加载失败',
+          icon: 'loading',
+          duration: 2000
+        })
         console.log(err)
       }
     })
   },
   // 左切换
   toLeft(){
-    wx.showLoading({
-      title:'切换中',
-      mask:true
-    })
     if (this.data.change_month==1) {
       this.data.change_month =13
       this.setData({
@@ -101,15 +101,10 @@ Page({
     this.showNowStatus()
     this.changeMargin()
     this.getCalendar()
-    wx.hideLoading()
   },
 
   // 右切换
   toRight(){
-    wx.showLoading({
-      title:'切换中',
-      mask:true
-    })
     if (this.data.change_month==12) {
       this.data.change_month =0
       this.setData({
@@ -122,10 +117,9 @@ Page({
     this.showNowStatus()
     this.changeMargin()
     this.getCalendar()
-    wx.hideLoading()
   },
 
-  // 点击按钮-获取日期
+  // 点击按钮-弹出日期遮罩层
   getDate(){
     wx.showLoading({
       title:'获取中',
@@ -204,7 +198,7 @@ Page({
     })
   },
 
-  // 动态改变Margin
+  // 动态改变Margin----按布局显示每月天数
   changeMargin(){
     this.getNowMonthDate()
     var d = new Date();
@@ -223,19 +217,13 @@ Page({
 
   // 点击确定 - 提交时间
   sureGetDate(){
-    wx.showLoading({
-      title:'切换中',
-      mask:true
-    })
-    this.showNowStatus()
-    this.changeMargin()
-    this.getCalendar()
-    this.changeBackData()
     this.setData({
       maskFlagMax:true,
       pickerViewFlag:true,
     })
-    wx.hideLoading()
+    this.changeMargin()
+    this.getCalendar()
+    this.showNowStatus()
   },
 
   // 取消
@@ -262,10 +250,10 @@ Page({
         myselfData.push({"status":'0'})
       }
       this.data.backData.map((item,index) =>{
-        if (item.selfCognition>5) {
+        if (item.selfCognition>6) {
           myselfData[item.day-1].status = 1
         }
-        else if (item.selfCognition<=5){
+        else if (item.selfCognition<=6){
           myselfData[item.day-1].status = -1
         }
       })

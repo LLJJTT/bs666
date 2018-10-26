@@ -55,8 +55,9 @@
               </view>
               <view class="autognosis clearfix">
                 <view class="autognosis_word">
-                  <view class="ziwo">自我</view>
-                  <view class="renzhi">认知</view>
+                  <view class="ziwo_box">
+                    <image class="ziwo" src="../../img/ziwo.png"></image>
+                  </view>
                 </view> 
                 <view class="autognosis_content">{{item.selfCognition}}分，自我价值{{item.selfCognition>5 ? '高':'低'}}</view>
               </view>
