@@ -3,6 +3,7 @@
     "pages/walkIcebergRecord/walkIcebergRecord",
     "pages/makeRecord/makeRecord",
     "pages/review/review",
+    "pages/test/test",
     "pages/modifyRecord/modifyRecord"
   ],
   "window":{

@@ -26,11 +26,11 @@
       interval="{{interval}}" 
       duration="{{duration}}">
       <block wx:key="index" wx:for="{{textArr}}">
-        <swiper-item class="huadong_content"  style="background-image:url('https://wise-edu.oss-cn-beijing.aliyuncs.com/statics/iceberg_bg.png ')">
+        <swiper-item class="huadong_content"  style="background-image:url('https://wise-edu.oss-cn-beijing.aliyuncs.com/statics/iceberg_bg.png')">
           <view>
             <view class="content_box clearfix">
               <view class="event clearfix">
-                <view class="e_word">事件</view>
+                <view bindlongpress="showModal"  class="e_word">事件</view>
                 <view class="e_content">{{item.event}}</view>
               </view>
               <view class="hard clearfix">
@@ -76,5 +76,16 @@
     <image bindtap="goMakeRecord" class="new_write" src="../../img/write.png"></image>
     <image bindtap="goReview" class="history" src="../../img/look_back.png"></image>
   </view>
-  
+  <!-- 模态框 -->
+  <view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
+    <view class="modals-cancel" bindtap="hideModal"></view>
+    <view class="bottom-dialog-body bottom-pos clearfix" animation="{{animationData}}">
+      <view class="simg">分享</view>
+      <view bindtap="saveImg" class="simg">生成图片</view>
+    </view>
+</view>
+<canvas canvas-id='mycanvas' class="img_can" style='' hidden='{{canvasHidden}}'></canvas>
+
+<!-- <button bindtap="showModal">点我</button> -->
+
 </view>

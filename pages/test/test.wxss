@@ -1,0 +1,33 @@
+/*动画前初始位置*/
+.bottom-pos{
+	-webkit-transform:translateY(100%);
+	transform:translateY(100%);
+}
+/*模态框*/
+.modals{position:fixed; z-index: 999; top:0; left: 0; right:0; bottom: 0;}
+.modals-cancel{position:absolute; z-index:1000; top:0; left: 0; right:0; bottom: 0; background-color: rgba(0,0,0,.5);}
+.bottom-dialog-body{
+	position:absolute; 
+	z-index:10001; 
+	bottom:0;
+ 	left:0;
+  	right:0;
+   	height:300rpx;
+   	background-color: #fff;
+}
+.simg{
+	line-height: 300rpx;
+	width: 50%;
+	height: 300rpx;
+	text-align: center;
+	float: left;
+}
+.img_can{
+	position:fixed;
+	z-index:99999999;
+	top:5vh;
+	left:5vw;
+	width:90vw;
+	height:90vh;
+	/* background: #000; */
+}

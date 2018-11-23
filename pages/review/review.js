@@ -80,7 +80,7 @@ Page({
       fail(err){
         wx.showToast({
           title: '数据加载失败',
-          icon: 'loading',
+          icon: 'none',
           duration: 2000
         })
         console.log(err)
