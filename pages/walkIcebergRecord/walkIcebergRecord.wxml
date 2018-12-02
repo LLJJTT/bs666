@@ -3,7 +3,7 @@
   <view class="tab" wx:if="{{showSiper}}">
     <view class="r_l_date">
         <image bindtap="toLeft" src="../../img/white_arrow_left.png"></image>
-        <view class="time_date">{{currentMonth}}月{{currentDay}}日</view>
+        <view class="time_date">{{currentMonth}}月{{currentDay}}日</view> 
         <image bindtap="toRight" src="../../img/white_arrow_right.png"></image>
     </view>
     <view class="dot_fa clearfix" wx:if="{{showSiper}}">
@@ -26,11 +26,11 @@
       interval="{{interval}}" 
       duration="{{duration}}">
       <block wx:key="index" wx:for="{{textArr}}">
-        <swiper-item class="huadong_content"  style="background-image:url('https://wise-edu.oss-cn-beijing.aliyuncs.com/statics/iceberg_bg.png')">
+        <swiper-item bindlongpress="showModal" class="huadong_content"  style="background-image:url('https://wise-edu.oss-cn-beijing.aliyuncs.com/statics/iceberg_bg.png')">
           <view>
             <view class="content_box clearfix">
               <view class="event clearfix">
-                <view bindlongpress="showModal"  class="e_word">事件</view>
+                <view  class="e_word">事件</view>
                 <view class="e_content">{{item.event}}</view>
               </view>
               <view class="hard clearfix">
@@ -80,12 +80,7 @@
   <view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
     <view class="modals-cancel" bindtap="hideModal"></view>
     <view class="bottom-dialog-body bottom-pos clearfix" animation="{{animationData}}">
-      <view class="simg">分享</view>
-      <view bindtap="saveImg" class="simg">生成图片</view>
+      <view bindtap="saveImg" class="simg">保存图片</view>
     </view>
-</view>
-<canvas canvas-id='mycanvas' class="img_can" style='' hidden='{{canvasHidden}}'></canvas>
-
-<!-- <button bindtap="showModal">点我</button> -->
-
+  </view>
 </view>

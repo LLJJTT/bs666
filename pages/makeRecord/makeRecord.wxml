@@ -4,7 +4,7 @@
 		<view>
 			<view class="red_title shijian_title">事件</view>
 			<view class="shijian_inp">
-				<input type="text" placeholder="行为， 故事内容" value="{{event}}" bindinput="getEvent"/>
+				<input type="text"  placeholder="行为， 故事内容" value="{{event}}" bindinput="getEvent"/>
 			</view>
 		</view>
 		<view>

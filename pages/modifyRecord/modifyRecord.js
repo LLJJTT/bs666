@@ -144,9 +144,29 @@ Page({
 
   //事件
   getEvent(e){
-    this.setData({
-      event:e.detail.value
-    })
+    var str = new String(e.detail.value);
+    var bytesCount = 0;
+    for (var i = 0 ,n = str.length; i < n; i++) {
+      var c = str.charCodeAt(i);
+      if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+        bytesCount += 1;
+      } else {
+        bytesCount += 2;
+      }
+    }
+    if (bytesCount>60) {
+      wx.showToast({
+        title: '已经达到字数（30）最大限制',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      this.setData({
+        event:e.detail.value
+      })
+    }
+    
   },
 
   //应对
@@ -163,9 +183,29 @@ Page({
 
   //感受
   getFeel(e){
-    this.setData({
-      feel:e.detail.value
-    })
+    var str = new String(e.detail.value);
+    var bytesCount = 0;
+    for (var i = 0 ,n = str.length; i < n; i++) {
+      var c = str.charCodeAt(i);
+      if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+        bytesCount += 1;
+      } else {
+        bytesCount += 2;
+      }
+    }
+    if (bytesCount>60) {
+      wx.showToast({
+        title: '已经达到字数（30）最大限制',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      this.setData({
+        feel:e.detail.value
+      })
+    }
+    
   },
 
   //观点
@@ -191,9 +231,28 @@ Page({
 
   //渴望
   getYearn(e){
-    this.setData({
-      yearn:e.detail.value
-    })
+    var str = new String(e.detail.value);
+    var bytesCount = 0;
+    for (var i = 0 ,n = str.length; i < n; i++) {
+      var c = str.charCodeAt(i);
+      if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+        bytesCount += 1;
+      } else {
+        bytesCount += 2;
+      }
+    }
+    if (bytesCount>60) {
+      wx.showToast({
+        title: '已经达到字数（30）最大限制',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      this.setData({
+        yearn:e.detail.value
+      })
+    }
   },
 
   // 点击保存
